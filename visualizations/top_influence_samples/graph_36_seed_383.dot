@@ -1,0 +1,9 @@
+digraph G{
+rankdir=LR;
+37 [style=filled, shape=circle, fillcolor="#fe0000", label="37"];
+327 [style=filled, shape=circle, fillcolor="#fe0000", label="327"];
+383 [style=filled, shape=box, fillcolor="#00fe00", label="383"];
+383 -> 383 [color="#e63946",penwidth=4.00];
+37 -> 383 [color="#52b788",style=dashed,penwidth=3.00];
+327 -> 383 [color="#52b788",style=dashed,penwidth=1.31];
+}

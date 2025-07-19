@@ -1,0 +1,8 @@
+digraph G{
+rankdir=LR;
+185 [style=filled, shape=box, fillcolor="#00fe00", label="185"];
+421 [style=filled, shape=circle, fillcolor="#fe0000", label="421"];
+185 -> 185 [color="#e63946",penwidth=4.00];
+421 -> 185 [color="#52b788",style=dashed,penwidth=3.00];
+185 -> 185 [color="#52b788",style=dashed,penwidth=0.50];
+}

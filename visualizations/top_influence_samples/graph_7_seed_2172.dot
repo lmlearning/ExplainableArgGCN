@@ -1,0 +1,12 @@
+digraph G{
+rankdir=LR;
+2202 [style=filled, shape=circle, fillcolor="#01fd00", label="2202"];
+2172 [style=filled, shape=box, fillcolor="#2dd100", label="2172"];
+3621 [style=filled, shape=circle, fillcolor="#01fd00", label="3621"];
+2166 [style=filled, shape=circle, fillcolor="#01fd00", label="2166"];
+2172 -> 2172 [color="#e63946",penwidth=4.00];
+2202 -> 2172 [color="#e63946",penwidth=1.28];
+2202 -> 2202 [color="#52b788",style=dashed,penwidth=3.00];
+3621 -> 2172 [color="#52b788",style=dashed,penwidth=1.42];
+2166 -> 2172 [color="#52b788",style=dashed,penwidth=1.42];
+}

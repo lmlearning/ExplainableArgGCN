@@ -1,0 +1,7 @@
+digraph G{
+rankdir=LR;
+42 [style=filled, shape=box, fillcolor="#00fe00", label="42"];
+3 [style=filled, shape=circle, fillcolor="#fe0000", label="3"];
+42 -> 42 [color="#e63946",penwidth=4.00];
+3 -> 42 [color="#52b788",style=dashed,penwidth=3.00];
+}

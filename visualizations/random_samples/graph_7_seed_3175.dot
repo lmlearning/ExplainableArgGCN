@@ -1,0 +1,7 @@
+digraph G{
+rankdir=LR;
+3177 [style=filled, shape=circle, fillcolor="#00fe00", label="3177"];
+3175 [style=filled, shape=box, fillcolor="#fe0000", label="3175"];
+3177 -> 3175 [color="#e63946",penwidth=4.00];
+3177 -> 3177 [color="#52b788",style=dashed,penwidth=3.00];
+}

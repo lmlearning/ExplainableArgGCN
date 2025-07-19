@@ -1,0 +1,6 @@
+digraph G{
+rankdir=LR;
+8620 [style=filled, shape=box, fillcolor="#00fe00", label="8620"];
+8620 -> 8620 [color="#e63946",penwidth=4.00];
+8620 -> 8620 [color="#52b788",style=dashed,penwidth=3.00];
+}

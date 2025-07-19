@@ -1,0 +1,37 @@
+digraph G{
+rankdir=LR;
+257 [style=filled, shape=circle, fillcolor="#40be00", label="257"];
+258 [style=filled, shape=box, fillcolor="#52ac00", label="258"];
+450 [style=filled, shape=circle, fillcolor="#a15d00", label="450"];
+324 [style=filled, shape=circle, fillcolor="#e71700", label="324"];
+325 [style=filled, shape=circle, fillcolor="#c83600", label="325"];
+452 [style=filled, shape=circle, fillcolor="#c83600", label="452"];
+414 [style=filled, shape=circle, fillcolor="#c03e00", label="414"];
+521 [style=filled, shape=circle, fillcolor="#a15d00", label="521"];
+43 [style=filled, shape=circle, fillcolor="#56a800", label="43"];
+267 [style=filled, shape=circle, fillcolor="#778700", label="267"];
+144 [style=filled, shape=circle, fillcolor="#659900", label="144"];
+465 [style=filled, shape=circle, fillcolor="#ca3400", label="465"];
+83 [style=filled, shape=circle, fillcolor="#b14d00", label="83"];
+215 [style=filled, shape=circle, fillcolor="#b54900", label="215"];
+120 [style=filled, shape=circle, fillcolor="#6e9000", label="120"];
+380 [style=filled, shape=circle, fillcolor="#976700", label="380"];
+30 [style=filled, shape=circle, fillcolor="#9b6300", label="30"];
+257 -> 258 [color="#e63946",penwidth=4.00];
+258 -> 258 [color="#e63946",penwidth=2.99];
+43 -> 258 [color="#e63946",penwidth=1.33];
+325 -> 257 [color="#52b788",style=dashed,penwidth=1.86];
+465 -> 257 [color="#52b788",style=dashed,penwidth=1.70];
+120 -> 257 [color="#52b788",style=dashed,penwidth=1.58];
+30 -> 257 [color="#52b788",style=dashed,penwidth=1.00];
+83 -> 258 [color="#52b788",style=dashed,penwidth=3.00];
+521 -> 258 [color="#52b788",style=dashed,penwidth=2.85];
+215 -> 258 [color="#52b788",style=dashed,penwidth=1.80];
+450 -> 258 [color="#52b788",style=dashed,penwidth=1.02];
+324 -> 43 [color="#52b788",style=dashed,penwidth=2.20];
+380 -> 43 [color="#52b788",style=dashed,penwidth=1.42];
+144 -> 43 [color="#52b788",style=dashed,penwidth=1.25];
+452 -> 43 [color="#52b788",style=dashed,penwidth=1.18];
+414 -> 43 [color="#52b788",style=dashed,penwidth=0.85];
+267 -> 43 [color="#52b788",style=dashed,penwidth=0.66];
+}

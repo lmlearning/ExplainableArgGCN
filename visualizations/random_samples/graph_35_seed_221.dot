@@ -1,0 +1,30 @@
+digraph G{
+rankdir=LR;
+129 [style=filled, shape=circle, fillcolor="#fe0000", label="129"];
+133 [style=filled, shape=circle, fillcolor="#fe0000", label="133"];
+202 [style=filled, shape=circle, fillcolor="#fe0000", label="202"];
+140 [style=filled, shape=circle, fillcolor="#fe0000", label="140"];
+208 [style=filled, shape=circle, fillcolor="#fe0000", label="208"];
+273 [style=filled, shape=circle, fillcolor="#fe0000", label="273"];
+242 [style=filled, shape=circle, fillcolor="#fe0000", label="242"];
+249 [style=filled, shape=circle, fillcolor="#fe0000", label="249"];
+283 [style=filled, shape=circle, fillcolor="#fe0000", label="283"];
+221 [style=filled, shape=box, fillcolor="#fe0000", label="221"];
+222 [style=filled, shape=circle, fillcolor="#fe0000", label="222"];
+223 [style=filled, shape=circle, fillcolor="#fe0000", label="223"];
+223 -> 221 [color="#e63946",penwidth=4.00];
+273 -> 221 [color="#e63946",penwidth=3.12];
+283 -> 221 [color="#e63946",penwidth=2.64];
+140 -> 221 [color="#e63946",penwidth=1.00];
+202 -> 273 [color="#52b788",style=dashed,penwidth=1.41];
+273 -> 273 [color="#52b788",style=dashed,penwidth=0.51];
+249 -> 273 [color="#52b788",style=dashed,penwidth=0.50];
+221 -> 283 [color="#52b788",style=dashed,penwidth=0.50];
+208 -> 283 [color="#52b788",style=dashed,penwidth=0.50];
+249 -> 283 [color="#52b788",style=dashed,penwidth=0.50];
+133 -> 140 [color="#52b788",style=dashed,penwidth=0.50];
+222 -> 223 [color="#52b788",style=dashed,penwidth=3.00];
+129 -> 223 [color="#52b788",style=dashed,penwidth=1.51];
+223 -> 223 [color="#52b788",style=dashed,penwidth=1.33];
+242 -> 223 [color="#52b788",style=dashed,penwidth=1.32];
+}

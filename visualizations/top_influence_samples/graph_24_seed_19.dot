@@ -1,0 +1,25 @@
+digraph G{
+rankdir=LR;
+289 [style=filled, shape=circle, fillcolor="#fe0000", label="289"];
+357 [style=filled, shape=circle, fillcolor="#fe0000", label="357"];
+454 [style=filled, shape=circle, fillcolor="#fe0000", label="454"];
+364 [style=filled, shape=circle, fillcolor="#fe0000", label="364"];
+209 [style=filled, shape=circle, fillcolor="#fe0000", label="209"];
+402 [style=filled, shape=circle, fillcolor="#fe0000", label="402"];
+19 [style=filled, shape=box, fillcolor="#00fe00", label="19"];
+467 [style=filled, shape=circle, fillcolor="#fe0000", label="467"];
+274 [style=filled, shape=circle, fillcolor="#fe0000", label="274"];
+409 [style=filled, shape=circle, fillcolor="#fe0000", label="409"];
+287 [style=filled, shape=circle, fillcolor="#fe0000", label="287"];
+19 -> 19 [color="#e63946",penwidth=4.00];
+467 -> 19 [color="#52b788",style=dashed,penwidth=3.00];
+402 -> 19 [color="#52b788",style=dashed,penwidth=2.63];
+289 -> 19 [color="#52b788",style=dashed,penwidth=1.93];
+454 -> 19 [color="#52b788",style=dashed,penwidth=1.83];
+409 -> 19 [color="#52b788",style=dashed,penwidth=1.17];
+364 -> 19 [color="#52b788",style=dashed,penwidth=1.16];
+274 -> 19 [color="#52b788",style=dashed,penwidth=1.13];
+357 -> 19 [color="#52b788",style=dashed,penwidth=1.04];
+209 -> 19 [color="#52b788",style=dashed,penwidth=1.01];
+287 -> 19 [color="#52b788",style=dashed,penwidth=0.97];
+}

@@ -1,0 +1,26 @@
+digraph G{
+rankdir=LR;
+994 [style=filled, shape=circle, fillcolor="#00fe00", label="994"];
+963 [style=filled, shape=box, fillcolor="#fe0000", label="963"];
+10 [style=filled, shape=circle, fillcolor="#fe0000", label="10"];
+299 [style=filled, shape=circle, fillcolor="#00fe00", label="299"];
+1611 [style=filled, shape=circle, fillcolor="#fe0000", label="1611"];
+1674 [style=filled, shape=circle, fillcolor="#fe0000", label="1674"];
+1003 [style=filled, shape=circle, fillcolor="#00fe00", label="1003"];
+177 [style=filled, shape=circle, fillcolor="#fe0000", label="177"];
+1781 [style=filled, shape=circle, fillcolor="#fe0000", label="1781"];
+1214 [style=filled, shape=circle, fillcolor="#fe0000", label="1214"];
+991 [style=filled, shape=circle, fillcolor="#fe0000", label="991"];
+299 -> 963 [color="#e63946",penwidth=4.00];
+963 -> 963 [color="#e63946",penwidth=1.63];
+1611 -> 299 [color="#52b788",style=dashed,penwidth=3.00];
+10 -> 299 [color="#52b788",style=dashed,penwidth=2.01];
+1781 -> 299 [color="#52b788",style=dashed,penwidth=1.85];
+1674 -> 299 [color="#52b788",style=dashed,penwidth=1.80];
+177 -> 299 [color="#52b788",style=dashed,penwidth=1.47];
+1214 -> 299 [color="#52b788",style=dashed,penwidth=1.47];
+1003 -> 963 [color="#52b788",style=dashed,penwidth=0.50];
+994 -> 963 [color="#52b788",style=dashed,penwidth=0.50];
+991 -> 963 [color="#52b788",style=dashed,penwidth=0.50];
+963 -> 963 [color="#52b788",style=dashed,penwidth=0.50];
+}

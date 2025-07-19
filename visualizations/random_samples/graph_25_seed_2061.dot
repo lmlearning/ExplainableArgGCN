@@ -1,0 +1,12 @@
+digraph G{
+rankdir=LR;
+2066 [style=filled, shape=circle, fillcolor="#00fe00", label="2066"];
+5714 [style=filled, shape=circle, fillcolor="#00fe00", label="5714"];
+2043 [style=filled, shape=circle, fillcolor="#00fe00", label="2043"];
+2061 [style=filled, shape=box, fillcolor="#639b00", label="2061"];
+2061 -> 2061 [color="#e63946",penwidth=4.00];
+2043 -> 2061 [color="#e63946",penwidth=1.04];
+2043 -> 2043 [color="#52b788",style=dashed,penwidth=3.00];
+5714 -> 2061 [color="#52b788",style=dashed,penwidth=1.59];
+2066 -> 2061 [color="#52b788",style=dashed,penwidth=1.59];
+}

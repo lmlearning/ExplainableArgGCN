@@ -1,0 +1,24 @@
+digraph G{
+rankdir=LR;
+1 [style=filled, shape=circle, fillcolor="#8f6f00", label="1"];
+301 [style=filled, shape=circle, fillcolor="#ca3400", label="301"];
+270 [style=filled, shape=circle, fillcolor="#e11d00", label="270"];
+238 [style=filled, shape=circle, fillcolor="#a75700", label="238"];
+365 [style=filled, shape=circle, fillcolor="#9a6400", label="365"];
+337 [style=filled, shape=circle, fillcolor="#40be00", label="337"];
+275 [style=filled, shape=box, fillcolor="#33cb00", label="275"];
+117 [style=filled, shape=circle, fillcolor="#d72700", label="117"];
+22 [style=filled, shape=circle, fillcolor="#fe0000", label="22"];
+214 [style=filled, shape=circle, fillcolor="#c23c00", label="214"];
+275 -> 275 [color="#e63946",penwidth=4.00];
+337 -> 275 [color="#e63946",penwidth=3.10];
+275 -> 337 [color="#52b788",style=dashed,penwidth=3.00];
+270 -> 337 [color="#52b788",style=dashed,penwidth=0.82];
+117 -> 337 [color="#52b788",style=dashed,penwidth=0.61];
+1 -> 337 [color="#52b788",style=dashed,penwidth=0.56];
+301 -> 275 [color="#52b788",style=dashed,penwidth=3.00];
+22 -> 275 [color="#52b788",style=dashed,penwidth=2.43];
+214 -> 275 [color="#52b788",style=dashed,penwidth=2.42];
+238 -> 275 [color="#52b788",style=dashed,penwidth=2.19];
+365 -> 275 [color="#52b788",style=dashed,penwidth=1.98];
+}

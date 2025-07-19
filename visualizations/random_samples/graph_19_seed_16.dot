@@ -1,0 +1,29 @@
+digraph G{
+rankdir=LR;
+7 [style=filled, shape=circle, fillcolor="#00fe00", label="7"];
+9 [style=filled, shape=circle, fillcolor="#fe0000", label="9"];
+11 [style=filled, shape=circle, fillcolor="#fe0000", label="11"];
+14 [style=filled, shape=circle, fillcolor="#fe0000", label="14"];
+16 [style=filled, shape=box, fillcolor="#fe0000", label="16"];
+17 [style=filled, shape=circle, fillcolor="#fe0000", label="17"];
+24 [style=filled, shape=circle, fillcolor="#fe0000", label="24"];
+25 [style=filled, shape=circle, fillcolor="#fe0000", label="25"];
+16 -> 16 [color="#e63946",penwidth=4.00];
+14 -> 16 [color="#e63946",penwidth=3.12];
+7 -> 16 [color="#e63946",penwidth=3.06];
+17 -> 16 [color="#e63946",penwidth=3.05];
+16 -> 16 [color="#52b788",style=dashed,penwidth=3.00];
+14 -> 17 [color="#52b788",style=dashed,penwidth=1.24];
+25 -> 17 [color="#52b788",style=dashed,penwidth=0.50];
+9 -> 17 [color="#52b788",style=dashed,penwidth=0.50];
+11 -> 17 [color="#52b788",style=dashed,penwidth=0.50];
+16 -> 17 [color="#52b788",style=dashed,penwidth=0.50];
+14 -> 14 [color="#52b788",style=dashed,penwidth=1.44];
+25 -> 14 [color="#52b788",style=dashed,penwidth=0.50];
+16 -> 14 [color="#52b788",style=dashed,penwidth=0.50];
+24 -> 14 [color="#52b788",style=dashed,penwidth=0.50];
+25 -> 7 [color="#52b788",style=dashed,penwidth=0.51];
+9 -> 7 [color="#52b788",style=dashed,penwidth=0.50];
+11 -> 7 [color="#52b788",style=dashed,penwidth=0.50];
+16 -> 7 [color="#52b788",style=dashed,penwidth=0.50];
+}

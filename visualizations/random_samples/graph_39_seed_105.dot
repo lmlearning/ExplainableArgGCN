@@ -1,0 +1,38 @@
+digraph G{
+rankdir=LR;
+546 [style=filled, shape=circle, fillcolor="#29d500", label="546"];
+260 [style=filled, shape=circle, fillcolor="#6d9100", label="260"];
+261 [style=filled, shape=circle, fillcolor="#b94500", label="261"];
+647 [style=filled, shape=circle, fillcolor="#fe0000", label="647"];
+360 [style=filled, shape=circle, fillcolor="#32cc00", label="360"];
+105 [style=filled, shape=box, fillcolor="#1ae400", label="105"];
+553 [style=filled, shape=circle, fillcolor="#659900", label="553"];
+428 [style=filled, shape=circle, fillcolor="#778700", label="428"];
+430 [style=filled, shape=circle, fillcolor="#d32b00", label="430"];
+143 [style=filled, shape=circle, fillcolor="#38c600", label="143"];
+306 [style=filled, shape=circle, fillcolor="#fe0000", label="306"];
+403 [style=filled, shape=circle, fillcolor="#a35b00", label="403"];
+116 [style=filled, shape=circle, fillcolor="#649a00", label="116"];
+119 [style=filled, shape=circle, fillcolor="#fe0000", label="119"];
+28 [style=filled, shape=circle, fillcolor="#956900", label="28"];
+382 [style=filled, shape=circle, fillcolor="#b14d00", label="382"];
+127 [style=filled, shape=circle, fillcolor="#5f9f00", label="127"];
+143 -> 105 [color="#e63946",penwidth=4.00];
+105 -> 105 [color="#e63946",penwidth=3.26];
+119 -> 105 [color="#e63946",penwidth=2.70];
+105 -> 105 [color="#52b788",style=dashed,penwidth=2.29];
+306 -> 105 [color="#52b788",style=dashed,penwidth=0.50];
+647 -> 105 [color="#52b788",style=dashed,penwidth=0.50];
+546 -> 119 [color="#52b788",style=dashed,penwidth=3.00];
+261 -> 119 [color="#52b788",style=dashed,penwidth=2.83];
+116 -> 119 [color="#52b788",style=dashed,penwidth=2.23];
+360 -> 119 [color="#52b788",style=dashed,penwidth=0.64];
+430 -> 143 [color="#52b788",style=dashed,penwidth=1.55];
+403 -> 143 [color="#52b788",style=dashed,penwidth=1.13];
+553 -> 143 [color="#52b788",style=dashed,penwidth=1.13];
+428 -> 143 [color="#52b788",style=dashed,penwidth=0.92];
+260 -> 143 [color="#52b788",style=dashed,penwidth=0.89];
+127 -> 143 [color="#52b788",style=dashed,penwidth=0.81];
+28 -> 143 [color="#52b788",style=dashed,penwidth=0.74];
+382 -> 143 [color="#52b788",style=dashed,penwidth=0.73];
+}

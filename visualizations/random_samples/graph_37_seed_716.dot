@@ -1,0 +1,37 @@
+digraph G{
+rankdir=LR;
+68 [style=filled, shape=circle, fillcolor="#9f5f00", label="68"];
+519 [style=filled, shape=circle, fillcolor="#8e7000", label="519"];
+520 [style=filled, shape=circle, fillcolor="#58a600", label="520"];
+635 [style=filled, shape=circle, fillcolor="#d12d00", label="635"];
+234 [style=filled, shape=circle, fillcolor="#639b00", label="234"];
+298 [style=filled, shape=circle, fillcolor="#ba4400", label="298"];
+716 [style=filled, shape=box, fillcolor="#a25c00", label="716"];
+50 [style=filled, shape=circle, fillcolor="#4db100", label="50"];
+563 [style=filled, shape=circle, fillcolor="#b94500", label="563"];
+211 [style=filled, shape=circle, fillcolor="#6a9400", label="211"];
+147 [style=filled, shape=circle, fillcolor="#ab5300", label="147"];
+313 [style=filled, shape=circle, fillcolor="#eb1300", label="313"];
+59 [style=filled, shape=circle, fillcolor="#c33b00", label="59"];
+636 [style=filled, shape=circle, fillcolor="#7f7f00", label="636"];
+703 [style=filled, shape=circle, fillcolor="#35c900", label="703"];
+703 -> 716 [color="#e63946",penwidth=4.00];
+50 -> 716 [color="#e63946",penwidth=3.83];
+636 -> 716 [color="#e63946",penwidth=1.32];
+520 -> 716 [color="#e63946",penwidth=1.00];
+716 -> 520 [color="#52b788",style=dashed,penwidth=2.50];
+68 -> 520 [color="#52b788",style=dashed,penwidth=1.44];
+234 -> 520 [color="#52b788",style=dashed,penwidth=0.60];
+50 -> 50 [color="#52b788",style=dashed,penwidth=1.03];
+716 -> 50 [color="#52b788",style=dashed,penwidth=0.51];
+313 -> 50 [color="#52b788",style=dashed,penwidth=0.50];
+716 -> 636 [color="#52b788",style=dashed,penwidth=3.00];
+563 -> 636 [color="#52b788",style=dashed,penwidth=1.62];
+211 -> 636 [color="#52b788",style=dashed,penwidth=0.70];
+716 -> 703 [color="#52b788",style=dashed,penwidth=1.50];
+59 -> 703 [color="#52b788",style=dashed,penwidth=0.59];
+635 -> 703 [color="#52b788",style=dashed,penwidth=0.53];
+298 -> 703 [color="#52b788",style=dashed,penwidth=0.52];
+147 -> 703 [color="#52b788",style=dashed,penwidth=0.50];
+519 -> 703 [color="#52b788",style=dashed,penwidth=0.50];
+}

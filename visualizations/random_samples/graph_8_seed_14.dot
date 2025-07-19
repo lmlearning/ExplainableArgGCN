@@ -1,0 +1,35 @@
+digraph G{
+rankdir=LR;
+1 [style=filled, shape=circle, fillcolor="#fe0000", label="1"];
+35 [style=filled, shape=circle, fillcolor="#fe0000", label="35"];
+36 [style=filled, shape=circle, fillcolor="#fe0000", label="36"];
+38 [style=filled, shape=circle, fillcolor="#fe0000", label="38"];
+8 [style=filled, shape=circle, fillcolor="#fe0000", label="8"];
+14 [style=filled, shape=box, fillcolor="#fe0000", label="14"];
+20 [style=filled, shape=circle, fillcolor="#fe0000", label="20"];
+23 [style=filled, shape=circle, fillcolor="#00fe00", label="23"];
+29 [style=filled, shape=circle, fillcolor="#fe0000", label="29"];
+30 [style=filled, shape=circle, fillcolor="#fe0000", label="30"];
+23 -> 14 [color="#e63946",penwidth=4.00];
+14 -> 14 [color="#e63946",penwidth=3.94];
+8 -> 14 [color="#e63946",penwidth=3.34];
+38 -> 14 [color="#e63946",penwidth=3.34];
+36 -> 8 [color="#52b788",style=dashed,penwidth=0.50];
+8 -> 8 [color="#52b788",style=dashed,penwidth=0.50];
+35 -> 8 [color="#52b788",style=dashed,penwidth=0.50];
+30 -> 8 [color="#52b788",style=dashed,penwidth=0.50];
+29 -> 8 [color="#52b788",style=dashed,penwidth=0.50];
+38 -> 8 [color="#52b788",style=dashed,penwidth=0.50];
+1 -> 8 [color="#52b788",style=dashed,penwidth=0.50];
+36 -> 38 [color="#52b788",style=dashed,penwidth=0.50];
+38 -> 38 [color="#52b788",style=dashed,penwidth=0.50];
+35 -> 38 [color="#52b788",style=dashed,penwidth=0.50];
+30 -> 38 [color="#52b788",style=dashed,penwidth=0.50];
+29 -> 38 [color="#52b788",style=dashed,penwidth=0.50];
+8 -> 38 [color="#52b788",style=dashed,penwidth=0.50];
+1 -> 38 [color="#52b788",style=dashed,penwidth=0.50];
+14 -> 14 [color="#52b788",style=dashed,penwidth=3.00];
+14 -> 23 [color="#52b788",style=dashed,penwidth=0.50];
+35 -> 23 [color="#52b788",style=dashed,penwidth=0.50];
+20 -> 23 [color="#52b788",style=dashed,penwidth=0.50];
+}

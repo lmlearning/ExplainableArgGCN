@@ -1,0 +1,37 @@
+digraph G{
+rankdir=LR;
+1304 [style=filled, shape=circle, fillcolor="#fe0000", label="1304"];
+1219 [style=filled, shape=circle, fillcolor="#fe0000", label="1219"];
+1788 [style=filled, shape=circle, fillcolor="#00fe00", label="1788"];
+709 [style=filled, shape=circle, fillcolor="#fe0000", label="709"];
+934 [style=filled, shape=circle, fillcolor="#fe0000", label="934"];
+1830 [style=filled, shape=circle, fillcolor="#fe0000", label="1830"];
+1643 [style=filled, shape=circle, fillcolor="#fe0000", label="1643"];
+940 [style=filled, shape=circle, fillcolor="#00fe00", label="940"];
+78 [style=filled, shape=box, fillcolor="#fe0000", label="78"];
+242 [style=filled, shape=circle, fillcolor="#00fe00", label="242"];
+1042 [style=filled, shape=circle, fillcolor="#fe0000", label="1042"];
+885 [style=filled, shape=circle, fillcolor="#01fd00", label="885"];
+1086 [style=filled, shape=circle, fillcolor="#fe0000", label="1086"];
+508 [style=filled, shape=circle, fillcolor="#fe0000", label="508"];
+1085 [style=filled, shape=circle, fillcolor="#fe0000", label="1085"];
+1886 [style=filled, shape=circle, fillcolor="#fe0000", label="1886"];
+1727 [style=filled, shape=circle, fillcolor="#fe0000", label="1727"];
+242 -> 78 [color="#e63946",penwidth=4.00];
+508 -> 78 [color="#e63946",penwidth=2.50];
+1788 -> 78 [color="#e63946",penwidth=2.00];
+934 -> 78 [color="#e63946",penwidth=1.64];
+709 -> 242 [color="#52b788",style=dashed,penwidth=2.02];
+1085 -> 242 [color="#52b788",style=dashed,penwidth=1.81];
+1727 -> 242 [color="#52b788",style=dashed,penwidth=1.38];
+1042 -> 242 [color="#52b788",style=dashed,penwidth=1.33];
+508 -> 508 [color="#52b788",style=dashed,penwidth=0.50];
+1830 -> 508 [color="#52b788",style=dashed,penwidth=0.50];
+940 -> 934 [color="#52b788",style=dashed,penwidth=0.50];
+1886 -> 934 [color="#52b788",style=dashed,penwidth=0.50];
+885 -> 934 [color="#52b788",style=dashed,penwidth=0.50];
+1643 -> 1788 [color="#52b788",style=dashed,penwidth=3.00];
+1086 -> 1788 [color="#52b788",style=dashed,penwidth=2.21];
+1304 -> 1788 [color="#52b788",style=dashed,penwidth=1.03];
+1219 -> 1788 [color="#52b788",style=dashed,penwidth=0.99];
+}

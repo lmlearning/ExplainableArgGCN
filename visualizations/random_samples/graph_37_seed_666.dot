@@ -1,0 +1,37 @@
+digraph G{
+rankdir=LR;
+578 [style=filled, shape=circle, fillcolor="#00fe00", label="578"];
+66 [style=filled, shape=circle, fillcolor="#fe0000", label="66"];
+579 [style=filled, shape=circle, fillcolor="#fe0000", label="579"];
+551 [style=filled, shape=circle, fillcolor="#a25c00", label="551"];
+648 [style=filled, shape=circle, fillcolor="#fe0000", label="648"];
+330 [style=filled, shape=circle, fillcolor="#fe0000", label="330"];
+171 [style=filled, shape=circle, fillcolor="#fe0000", label="171"];
+492 [style=filled, shape=circle, fillcolor="#00fe00", label="492"];
+303 [style=filled, shape=circle, fillcolor="#629c00", label="303"];
+402 [style=filled, shape=circle, fillcolor="#fe0000", label="402"];
+370 [style=filled, shape=circle, fillcolor="#956900", label="370"];
+758 [style=filled, shape=circle, fillcolor="#fe0000", label="758"];
+470 [style=filled, shape=circle, fillcolor="#00fe00", label="470"];
+601 [style=filled, shape=circle, fillcolor="#00fe00", label="601"];
+666 [style=filled, shape=box, fillcolor="#fe0000", label="666"];
+95 [style=filled, shape=circle, fillcolor="#ae5000", label="95"];
+66 -> 666 [color="#e63946",penwidth=4.00];
+492 -> 666 [color="#e63946",penwidth=2.84];
+758 -> 666 [color="#e63946",penwidth=2.36];
+578 -> 666 [color="#e63946",penwidth=1.82];
+666 -> 666 [color="#e63946",penwidth=1.49];
+95 -> 66 [color="#52b788",style=dashed,penwidth=3.00];
+579 -> 578 [color="#52b788",style=dashed,penwidth=0.76];
+402 -> 492 [color="#52b788",style=dashed,penwidth=1.79];
+171 -> 492 [color="#52b788",style=dashed,penwidth=0.50];
+330 -> 492 [color="#52b788",style=dashed,penwidth=0.50];
+648 -> 492 [color="#52b788",style=dashed,penwidth=0.50];
+370 -> 758 [color="#52b788",style=dashed,penwidth=0.50];
+601 -> 758 [color="#52b788",style=dashed,penwidth=0.50];
+470 -> 758 [color="#52b788",style=dashed,penwidth=0.50];
+758 -> 758 [color="#52b788",style=dashed,penwidth=0.50];
+551 -> 666 [color="#52b788",style=dashed,penwidth=0.50];
+303 -> 666 [color="#52b788",style=dashed,penwidth=0.50];
+171 -> 666 [color="#52b788",style=dashed,penwidth=0.50];
+}

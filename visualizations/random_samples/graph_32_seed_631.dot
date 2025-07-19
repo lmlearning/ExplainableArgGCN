@@ -1,0 +1,20 @@
+digraph G{
+rankdir=LR;
+481 [style=filled, shape=circle, fillcolor="#b04e00", label="481"];
+255 [style=filled, shape=circle, fillcolor="#7d8100", label="255"];
+613 [style=filled, shape=circle, fillcolor="#a65800", label="613"];
+141 [style=filled, shape=circle, fillcolor="#7b8300", label="141"];
+109 [style=filled, shape=circle, fillcolor="#a15d00", label="109"];
+631 [style=filled, shape=box, fillcolor="#ce3000", label="631"];
+89 [style=filled, shape=circle, fillcolor="#807e00", label="89"];
+735 [style=filled, shape=circle, fillcolor="#14ea00", label="735"];
+735 -> 631 [color="#e63946",penwidth=4.00];
+89 -> 631 [color="#e63946",penwidth=1.00];
+255 -> 89 [color="#52b788",style=dashed,penwidth=3.00];
+631 -> 89 [color="#52b788",style=dashed,penwidth=2.68];
+613 -> 89 [color="#52b788",style=dashed,penwidth=1.08];
+141 -> 89 [color="#52b788",style=dashed,penwidth=0.82];
+631 -> 735 [color="#52b788",style=dashed,penwidth=2.92];
+481 -> 735 [color="#52b788",style=dashed,penwidth=2.17];
+109 -> 735 [color="#52b788",style=dashed,penwidth=1.06];
+}

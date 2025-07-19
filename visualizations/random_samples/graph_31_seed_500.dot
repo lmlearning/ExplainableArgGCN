@@ -1,0 +1,37 @@
+digraph G{
+rankdir=LR;
+256 [style=filled, shape=circle, fillcolor="#b04e00", label="256"];
+481 [style=filled, shape=circle, fillcolor="#e71700", label="481"];
+321 [style=filled, shape=circle, fillcolor="#fe0000", label="321"];
+312 [style=filled, shape=circle, fillcolor="#c13d00", label="312"];
+520 [style=filled, shape=circle, fillcolor="#fe0000", label="520"];
+172 [style=filled, shape=circle, fillcolor="#f70700", label="172"];
+45 [style=filled, shape=circle, fillcolor="#dc2200", label="45"];
+528 [style=filled, shape=circle, fillcolor="#897500", label="528"];
+500 [style=filled, shape=box, fillcolor="#a45a00", label="500"];
+308 [style=filled, shape=circle, fillcolor="#fc0200", label="308"];
+344 [style=filled, shape=circle, fillcolor="#be4000", label="344"];
+249 [style=filled, shape=circle, fillcolor="#837b00", label="249"];
+444 [style=filled, shape=circle, fillcolor="#fe0000", label="444"];
+29 [style=filled, shape=circle, fillcolor="#fe0000", label="29"];
+528 -> 500 [color="#e63946",penwidth=4.00];
+249 -> 500 [color="#e63946",penwidth=3.80];
+344 -> 500 [color="#e63946",penwidth=2.93];
+481 -> 500 [color="#e63946",penwidth=2.86];
+444 -> 500 [color="#e63946",penwidth=1.93];
+321 -> 481 [color="#52b788",style=dashed,penwidth=2.73];
+500 -> 481 [color="#52b788",style=dashed,penwidth=2.05];
+172 -> 481 [color="#52b788",style=dashed,penwidth=1.94];
+256 -> 528 [color="#52b788",style=dashed,penwidth=2.00];
+312 -> 528 [color="#52b788",style=dashed,penwidth=1.98];
+45 -> 528 [color="#52b788",style=dashed,penwidth=1.86];
+500 -> 528 [color="#52b788",style=dashed,penwidth=1.79];
+29 -> 528 [color="#52b788",style=dashed,penwidth=1.61];
+344 -> 344 [color="#52b788",style=dashed,penwidth=1.66];
+520 -> 344 [color="#52b788",style=dashed,penwidth=0.50];
+249 -> 249 [color="#52b788",style=dashed,penwidth=2.05];
+308 -> 249 [color="#52b788",style=dashed,penwidth=0.91];
+500 -> 249 [color="#52b788",style=dashed,penwidth=0.68];
+500 -> 444 [color="#52b788",style=dashed,penwidth=3.00];
+444 -> 444 [color="#52b788",style=dashed,penwidth=1.99];
+}

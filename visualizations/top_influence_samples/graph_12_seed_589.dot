@@ -1,0 +1,10 @@
+digraph G{
+rankdir=LR;
+425 [style=filled, shape=circle, fillcolor="#fe0000", label="425"];
+588 [style=filled, shape=circle, fillcolor="#fe0000", label="588"];
+589 [style=filled, shape=box, fillcolor="#05f900", label="589"];
+589 -> 589 [color="#e63946",penwidth=4.00];
+425 -> 589 [color="#52b788",style=dashed,penwidth=3.00];
+589 -> 589 [color="#52b788",style=dashed,penwidth=1.95];
+588 -> 589 [color="#52b788",style=dashed,penwidth=1.69];
+}

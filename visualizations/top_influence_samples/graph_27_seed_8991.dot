@@ -1,0 +1,12 @@
+digraph G{
+rankdir=LR;
+9290 [style=filled, shape=circle, fillcolor="#01fd00", label="9290"];
+3610 [style=filled, shape=circle, fillcolor="#01fd00", label="3610"];
+8983 [style=filled, shape=circle, fillcolor="#01fd00", label="8983"];
+8991 [style=filled, shape=box, fillcolor="#629c00", label="8991"];
+8991 -> 8991 [color="#e63946",penwidth=4.00];
+9290 -> 8991 [color="#e63946",penwidth=1.36];
+9290 -> 9290 [color="#52b788",style=dashed,penwidth=3.00];
+3610 -> 8991 [color="#52b788",style=dashed,penwidth=1.45];
+8983 -> 8991 [color="#52b788",style=dashed,penwidth=1.45];
+}

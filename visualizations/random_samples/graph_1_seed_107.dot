@@ -1,0 +1,13 @@
+digraph G{
+rankdir=LR;
+115 [style=filled, shape=circle, fillcolor="#fe0000", label="115"];
+75 [style=filled, shape=circle, fillcolor="#fe0000", label="75"];
+107 [style=filled, shape=box, fillcolor="#fe0000", label="107"];
+71 [style=filled, shape=circle, fillcolor="#00fe00", label="71"];
+107 -> 107 [color="#e63946",penwidth=4.00];
+71 -> 107 [color="#e63946",penwidth=1.30];
+107 -> 107 [color="#52b788",style=dashed,penwidth=2.43];
+75 -> 107 [color="#52b788",style=dashed,penwidth=1.09];
+115 -> 71 [color="#52b788",style=dashed,penwidth=3.00];
+107 -> 71 [color="#52b788",style=dashed,penwidth=0.65];
+}
