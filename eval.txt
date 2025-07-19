@@ -1,0 +1,9 @@
+python evaluate_pyg_baselines.py --data_dir test_data refined=refined_best.pth
+
+python train_consolidated.py --model refined --training_dir training_data --validation_dir validation_data --no_rank_loss --use_class_weights --checkpoint refined_noRank.pth
+
+python train_consolidated.py --model refined --training_dir training_data --validation_dir validation_data --use_class_weights --checkpoint refined_03new.pth --rank_loss_weight 0.3
+
+python evaluate_intrinsic.py --data_dir test_data --ckpt refined_1new.pth --export_json vis.json --export_dot   vis_dots --top_k 5 5 
+
+python visualize_neighborhoods.py --data_dir test_data --ckpt refined_1new.pth --output_dir ./visualizations/top_influence
