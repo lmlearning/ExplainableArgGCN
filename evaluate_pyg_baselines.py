@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """
-Evaluate Refined-AFGCN and six PyG baselines on:
-  • Accuracy, MCC
-  • Spearman-ρ and Kendall-τ alignment with Categoriser ranking.
+Evaluate Refined-AFGCN (with ablations) and six PyG baselines on:
+ • Accuracy, MCC
+ • Spearman-ρ and Kendall-τ alignment with Categoriser ranking.
 """
 
 import argparse
@@ -16,10 +16,13 @@ from sklearn.metrics import matthews_corrcoef
 
 import torch
 from torch_scatter import scatter_sum, scatter_softmax
-from torch_geometric.data import DataLoader, Data
+# MODIFIED: Corrected import for DataLoader to resolve deprecation warning.
+from torch_geometric.loader import DataLoader
+from torch_geometric.data import Data
 
-# — our dataset + explainable model —
+# — Import dataset and the model (which now supports ablations) —
 from train_refined_afgcn import AFGraphDataset
+# Ensure this imports the RefinedAFGCN class from the new consolidated script.
 from train_consolidated import RefinedAFGCN
 
 # — load the baseline definitions from the user’s file —
@@ -28,7 +31,7 @@ pyg_baselines = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(pyg_baselines)  # type: ignore
 
 
-# ╭────────────────────────  helper: 128-d feature fabrication  ────────────────────────╮
+# ╭────────────────────────  helper: 128-d feature fabrication  ────────────────────────╮
 def make_inputs(x, dim=128):
     """Pad / crop node feature matrix to exactly `dim` columns."""
     if x.size(1) == dim:
@@ -42,10 +45,11 @@ def make_inputs(x, dim=128):
 # ╰──────────────────────────────────────────────────────────────────────────────────────╯
 
 
-# ╭──────────────  Gradient×Input importance (for non-attention baselines)  ─────────────╮
+# ╭──────────────  Gradient×Input importance (for non-attention baselines)  ─────────────╮
 def grad_times_input(model, data):
     """Computes node importance using the Gradient × Input method."""
     x = make_inputs(data.x).clone().detach().requires_grad_(True)
+    # The data object passed to baselines must be a plain Data object
     logits = model(Data(x=x, edge_index=data.edge_index))
     # broadcast to node-vector if model returns scalar
     logits = logits if logits.dim() else logits.expand(x.size(0))
@@ -58,7 +62,7 @@ def grad_times_input(model, data):
 # ╰──────────────────────────────────────────────────────────────────────────────────────╯
 
 
-# ╭──────────────────  GAT importance (from attention weights)  ───────────────────────╮
+# ╭──────────────────  GAT importance (from attention weights)  ───────────────────────╮
 def gat_importance(model, data):
     """
     Computes node importance for a GAT model by retrieving attention
@@ -84,65 +88,6 @@ def gat_importance(model, data):
 # ╰──────────────────────────────────────────────────────────────────────────────────────╯
 
 
-def edge_importance_first_layer(layer, edge_index, h):
-    """
-    Replicates the internal computation of RefinedAFGCNLayer to obtain
-    per‑node importance scores  I_i  (see paper, Eq. (8)).
-    Uses the *unnormalised* node features h that are fed into layer 0.
-    Returns a tensor of shape (N, ).
-    """
-    struct_dim = layer.struct_dim
-    device = h.device
-    N = h.size(0)
-
-    # Extract structural components
-    s = h[:, :struct_dim]  # (N, struct_dim)
-    s_feat = s[:, :-1]  # (N, struct_dim-1)
-
-    # Split edge index
-    H = layer.embed(h) if layer.embed is not None else h
-    src, tgt = edge_index
-    h_src, h_tgt = H[src], H[tgt]
-    s_src_feat = s_feat[src]
-    s_tgt_feat = s_feat[tgt]
-
-    # -- α_ij  ----------------------------------------------------------
-    W_att_h_src = layer.W_att(h_src)
-    score_e = (h_tgt * W_att_h_src).sum(dim=-1) + (s_tgt_feat * s_src_feat).sum(
-        dim=-1
-    )
-    alpha = scatter_softmax(score_e, tgt)  # (E,)
-
-    # -- ρ_{ij} via defender pathway  -----------------------------------
-    # reverse edges: defender → attacker
-    rev_src = tgt
-    rev_tgt = src
-
-    # Corrected: Use the embedded tensor H instead of the raw input h
-    h_rev_att = H[rev_tgt]
-    h_rev_def = H[rev_src]
-
-    pairing = (layer.W_p(h_rev_att) * layer.W_p_prime(h_rev_def)).sum(-1)
-    beta = scatter_softmax(pairing, rev_tgt)
-    psi = layer.f_def(h_rev_def).squeeze(-1)
-    sum_term = scatter_sum(
-        beta * torch.exp(-psi), rev_tgt, dim=0, dim_size=N
-    )  # (N,)
-    d = -torch.log(sum_term + 1e-8)
-    rho = 1 / (1 + torch.exp(-layer.gamma * (d - layer.delta)))  # (N,)
-    rho_edge = rho[src]  # (E,)
-
-    # -- φ_att(h_src)  ---------------------------------------------------
-    phi_src = layer.phi_att(h_src)  # (E, hidden_dim)
-
-    # message  m_e  = α · (1-ρ) · φ
-    contrib = alpha.unsqueeze(-1) * (1 - rho_edge).unsqueeze(-1) * phi_src
-    # importance per *target* node = L1‑norm of message vector
-    m_att = scatter_sum(contrib, tgt, dim=0, dim_size=N)  # (N, hidden_dim)
-    importance = m_att.norm(p=1, dim=-1)  # (N,)
-
-    return importance
-
 def refined_importance(model, data):
     """
     Retrieves the dedicated ranking scores from the dual-head RefinedAFGCN model.
@@ -151,99 +96,137 @@ def refined_importance(model, data):
     _, rank_scores = model(data)
     return rank_scores.cpu()
 
-# ╭─────────────────────────────  model registry  ───────────────────────────────────────╮
-def build_refined(ckpt, hid, layers, device):
-    m = RefinedAFGCN(7, hid, layers).to(device)
-    # Note: State dict is loaded later in the main loop
-    m.eval()
-    return m
 
-#lambda m, d: edge_importance_first_layer(
-#            m.layers[0],
-#            d.edge_index[:, d.edge_index[0] != d.edge_index[1]],
-#            m.input_norm(d.x),
-#        ).cpu()
+# ╭─────────────────────────────  model registry  ───────────────────────────────────────╮
+# --- MODIFIED: `build_refined` now accepts ablation flags ---
+def build_refined(ckpt, hid, layers, device, cli_args):
+    """
+    Builds the RefinedAFGCN model, passing through any ablation flags
+    from the command line to construct the correct model variant.
+    """
+    abl_flags = dict(
+        disable_pairing=cli_args.no_pairing,
+        disable_struct=cli_args.no_struct,
+        disable_residual=cli_args.no_residual,
+        disable_ln=cli_args.no_ln,
+    )
+    # The **abl_flags unpacks the dictionary into keyword arguments
+    model = RefinedAFGCN(
+        struct_dim=7, hidden=hid, layers=layers, **abl_flags
+    ).to(device)
+    model.eval()
+    return model
 
+# --- MODIFIED: Model builders now accept an 'args' parameter for consistency ---
 MODEL_ZOO = {
     "refined": (
-        build_refined,refined_importance
-        ,
+        build_refined,
+        refined_importance,
     ),
-    "afgcn": (lambda *_: pyg_baselines.AFGCN(128, 128, 1, 4).eval(), grad_times_input),
+    # The lambda functions now accept a fifth argument 'args' which they don't use.
+    # This keeps the function signature consistent with `build_refined`.
+    "afgcn": (
+        lambda ckpt, hid, l, dev, args: pyg_baselines.AFGCN(128, hid, 1, l).eval(),
+        grad_times_input
+    ),
     "randalign": (
-        lambda *_: pyg_baselines.RandAlignGCN(128, 128, 1, 3).eval(),
+        lambda ckpt, hid, l, dev, args: pyg_baselines.RandAlignGCN(128, hid, 1, l).eval(),
         grad_times_input,
     ),
-    "gcn": (lambda *_: pyg_baselines.GCN(128, 128, 1).eval(), grad_times_input),
+    "gcn": (
+        lambda ckpt, hid, l, dev, args: pyg_baselines.GCN(128, hid, l).eval(),
+        grad_times_input
+    ),
     "graphsage": (
-        lambda *_: pyg_baselines.GraphSAGE(128, 128, 1).eval(),
+        lambda ckpt, hid, l, dev, args: pyg_baselines.GraphSAGE(128, hid, l).eval(),
         grad_times_input,
     ),
-    "gin": (lambda *_: pyg_baselines.GIN(128, 128, 1).eval(), grad_times_input),
+    "gin": (
+        lambda ckpt, hid, l, dev, args: pyg_baselines.GIN(128, hid, l).eval(),
+        grad_times_input
+    ),
     "gat": (
-        lambda *_: pyg_baselines.GAT(128, 64, 1, heads=4).eval(),
-        gat_importance,  # <-- FIXED
+        lambda ckpt, hid, l, dev, args: pyg_baselines.GAT(128, hid, l, heads=4).eval(),
+        gat_importance,
     ),
 }
-
 
 # ╰──────────────────────────────────────────────────────────────────────────────────────╯
 
 
-# ╭─────────────────────────────  evaluation core  ──────────────────────────────────────╮
+# ╭─────────────────────────────  evaluation core  ──────────────────────────────────────╮
 def evaluate(model, loader, imp_fn, device, model_key):
     model = model.to(device).eval()
     tot, cor = 0, 0
     y_true, y_pred, spears, kends = [], [], [], []
 
-    for data in loader:
-        data = data.to(device)
+    with torch.no_grad():
+        for data in loader:
+            data = data.to(device)
 
-        # --- MODIFIED: Handle different model outputs ---
-        if model_key == "refined":
-            # Refined model returns a (logits, scores) tuple and handles its own inputs
-            output = model(data)
-            logits, _ = output  # Unpack tuple, we only need classification logits
-        else:
-            # Baseline models need input padding and return a single tensor
-            padded_data = data.clone()
-            padded_data.x = make_inputs(padded_data.x)
-            logits = model(padded_data)
+            if model_key == "refined":
+                output = model(data)
+                logits, _ = output
+            else:
+                # Baseline models need input padding
+                padded_data = Data(x=make_inputs(data.x), edge_index=data.edge_index)
+                logits = model(padded_data)
 
-        pred = (torch.sigmoid(logits) > 0.5).float()
-        cor += (pred == data.y.float()).sum().item()
-        tot += data.y.size(0)
-        y_true.extend(data.y.cpu().numpy())
-        y_pred.extend(pred.cpu().numpy())
+            pred = (torch.sigmoid(logits) > 0.5).float()
+            cor += (pred == data.y.float()).sum().item()
+            tot += data.y.size(0)
+            y_true.extend(data.y.cpu().numpy())
+            y_pred.extend(pred.cpu().numpy())
 
-        imp = imp_fn(model, data).detach().cpu().numpy()
-        rk = data.rank.cpu().numpy()
-        if imp.std() > 1e-6 and rk.std() > 1e-6:
-            ρ, _ = spearmanr(rk, imp)
-            τ, _ = kendalltau(rk, imp)
-            if not math.isnan(ρ):
-                spears.append(ρ)
-            if not math.isnan(τ):
-                kends.append(τ)
+            imp = imp_fn(model, data).detach().cpu().numpy()
+            rk = data.rank.cpu().numpy()
+            if imp.std() > 1e-6 and rk.std() > 1e-6:
+                ρ, _ = spearmanr(rk, imp)
+                τ, _ = kendalltau(rk, imp)
+                if not math.isnan(ρ):
+                    spears.append(ρ)
+                if not math.isnan(τ):
+                    kends.append(τ)
 
     acc = cor / tot if tot > 0 else 0
     mcc = matthews_corrcoef(y_true, y_pred)
 
-    # Handle cases where no valid correlations were found
     mean_spearman = float(np.mean(spears)) if spears else 0.0
     mean_kendall = float(np.mean(kends)) if kends else 0.0
 
     return acc, mcc, mean_spearman, mean_kendall
 
-
 # ╰──────────────────────────────────────────────────────────────────────────────────────╯
 
 if __name__ == "__main__":
-    p = argparse.ArgumentParser()
-    p.add_argument("--data_dir", required=True)
-    p.add_argument("--hidden_dim", type=int, default=128)
-    p.add_argument("--num_layers", type=int, default=2)
-    p.add_argument("models", nargs="+", help="key=checkpoint.pth pairs")
+    p = argparse.ArgumentParser(
+        description="Evaluate Refined-AFGCN (with ablations) and PyG baselines.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    p.add_argument("--data_dir", required=True, help="Directory containing the graph data.")
+    p.add_argument("--hidden_dim", type=int, default=128, help="Hidden dimension size.")
+    p.add_argument("--num_layers", type=int, default=2, help="Number of GNN layers.")
+
+    # --- MODIFIED: Add arguments for RefinedAFGCN ablations ---
+    p.add_argument(
+        '--no_pairing', action='store_true',
+        help="For RefinedAFGCN: use if checkpoint was trained with --no_pairing."
+    )
+    p.add_argument(
+        '--no_struct', action='store_true',
+        help="For RefinedAFGCN: use if checkpoint was trained with --no_struct."
+    )
+    p.add_argument(
+        '--no_residual', action='store_true',
+        help="For RefinedAFGCN: use if checkpoint was trained with --no_residual."
+    )
+    p.add_argument(
+        '--no_ln', action='store_true',
+        help="For RefinedAFGCN: use if checkpoint was trained with --no_ln."
+    )
+    # ---
+
+    p.add_argument("models", nargs="+", help="key=checkpoint.pth pairs to evaluate.")
     args = p.parse_args()
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -258,7 +241,9 @@ if __name__ == "__main__":
             continue
 
         build, imp_fn = MODEL_ZOO[key]
-        model = build(ckpt, args.hidden_dim, args.num_layers, device)
+        
+        # --- MODIFIED: Pass the full 'args' object to the model builder ---
+        model = build(ckpt, args.hidden_dim, args.num_layers, device, args)
 
         if os.path.exists(ckpt):
             state = torch.load(ckpt, map_location=device)
@@ -267,7 +252,9 @@ if __name__ == "__main__":
                 model.load_state_dict(state["model_state_dict"])
             else:
                 model.load_state_dict(state)
-
-        # --- Pass the model 'key' to the evaluate function ---
+        else:
+            print(f"# checkpoint not found for '{key}': {ckpt} -- skipped", file=sys.stderr)
+            continue
+            
         acc, mcc, sp, kt = evaluate(model, loader, imp_fn, device, model_key=key)
         print(f"{key},{acc:.4f},{mcc:.4f},{sp:.4f},{kt:.4f}")

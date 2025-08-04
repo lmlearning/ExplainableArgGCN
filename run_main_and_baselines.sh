@@ -22,7 +22,7 @@ python train_consolidated.py \
     --checkpoint "$CHECKPOINT_DIR/refined_best.pth"
 
 # --- Train Baselines ---
-BASELINES="afgcn gcn gat gin"
+BASELINES="afgcn gcn gat gin graphsage"
 
 for model_name in $BASELINES; do
     echo "--- Training Baseline: $model_name ---"
