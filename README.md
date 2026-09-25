@@ -1,4 +1,4 @@
-# ExplainableArgGCN
+# ExplainableArgGCN: Explainable Graph Learning for Argumentation
 
 Research code for **explainable graph neural networks in abstract argumentation**, with training, baseline evaluation, ablation studies and neighborhood visualizations.
 
