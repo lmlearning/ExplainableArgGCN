@@ -16,6 +16,7 @@ Run example:
 """
 
 import os, random, argparse, pickle, math, time
+from graph_io import parse_tgf
 import numpy as np, networkx as nx
 from tqdm import tqdm
 from sklearn.preprocessing import StandardScaler
@@ -74,18 +75,9 @@ def categoriser_ranking(adj_matrix, max_iter=1000, tol=1e-9):
 
 
 def parseTGF(path):
-    with open(path) as f:
-        lines = [ln.strip() for ln in f]
-    args, atts, hash_seen = [], [], False
-    for ln in lines:
-        if ln == '#':
-            hash_seen = True
-            continue
-        if not hash_seen:
-            args.append(ln)
-        else:
-            atts.append(ln.split(' '))
-    return args, atts
+    # Preserve the list-of-lists return type used by existing callers.
+    arguments, attacks = parse_tgf(path)
+    return arguments, [list(attack) for attack in attacks]
 
 
 def parse_apx(path):

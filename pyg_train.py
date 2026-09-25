@@ -22,6 +22,7 @@ import argparse
 import pickle
 from pathlib import Path
 from typing import Dict, List, Tuple
+from graph_io import parse_tgf as _parse_tgf
 
 import networkx as nx
 import numpy as np
@@ -45,16 +46,7 @@ except ImportError:
 
 
 def parse_tgf(file: Path) -> Tuple[List[str], List[Tuple[str, str]]]:
-    args, atts, seen_hash = [], [], False
-    with file.open() as f:
-        for ln in f:
-            ln = ln.strip()
-            if ln == "#":
-                seen_hash = True
-                continue
-            (args if not seen_hash else atts).append(ln)
-    atts = [tuple(e.split()) for e in atts]
-    return args, atts
+    return _parse_tgf(file)
 
 
 def reindex_nodes(g: nx.DiGraph) -> Tuple[nx.DiGraph, Dict[str, int]]:
