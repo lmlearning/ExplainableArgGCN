@@ -1,0 +1,5 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+--find-links https://data.pyg.org/whl/torch-2.7.0+cpu.html
+-r requirements.txt
+torch==2.7.0+cpu
+torch-scatter==2.1.2+pt27cpu
