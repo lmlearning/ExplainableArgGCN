@@ -26,6 +26,27 @@ The shell scripts document the experiment workflows. Review their data paths, mo
 
 [AFGCN](https://github.com/lmlearning/AFGCN) · [AFGraphLib](https://github.com/lmlearning/AFGraphLib) · [FastAFGCN](https://github.com/lmlearning/FastAFGCN)
 
+## TGF input validation
+
+`graph_io.py` provides the shared parser used by `pyg_train.py` and the refined
+training pipeline. It accepts the unlabelled TGF subset used here: one argument
+identifier per line, a single `#` separator, then two attack endpoints per line.
+Blank lines are ignored and spaces or tabs can separate endpoints. Argument and
+attack order, isolated arguments and self-attacks are preserved.
+
+Duplicate argument identifiers, malformed attacks, undeclared endpoints and missing
+or repeated separators raise `ValueError` with file context. Optional TGF node/edge
+labels are not supported. `train_refined_afgcn.parseTGF` retains its existing
+list-of-lists attack return type.
+
+```bash
+python -m pip install pytest
+python -m pytest tests
+```
+
+These component tests need no graph-learning libraries or checkpoints. They validate
+input handling; they do not reproduce training or evaluate model accuracy.
+
 ## License
 
 See [LICENSE](LICENSE).
