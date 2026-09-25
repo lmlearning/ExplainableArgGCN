@@ -1,10 +1,10 @@
-gem==0.1.12
-networkx==2.4
-numpy==1.21.5
-scikit_learn==1.7.1
-scipy==1.8.0
+# Core training/evaluation versions validated with Python 3.11.
+# For CPU wheels use requirements-cpu.txt. Optional HOPE embeddings need GEM.
+numpy==1.26.4
+scipy==1.15.3
+networkx==3.4.2
+scikit-learn==1.7.1
 torch==2.7.0
-torch_geometric==2.6.1
-torch_scatter==2.1.2
+torch-geometric==2.6.1
+torch-scatter==2.1.2
 tqdm==4.67.1
-torch_scatter

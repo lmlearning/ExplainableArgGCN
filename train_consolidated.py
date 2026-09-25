@@ -13,6 +13,7 @@
 #     based on classification performance (MCC).
 # ──────────────────────────────────────────────────────────────
 import argparse, importlib.util, math, numpy as np, time
+from pathlib import Path
 from tqdm import tqdm
 
 from sklearn.metrics import matthews_corrcoef
@@ -144,7 +145,7 @@ class RefinedAFGCN(nn.Module):
 
 # ╭──────────────────── load baseline builders from pyg_train.py ─────────────╮
 def load_pyg_baselines():
-    spec = importlib.util.spec_from_file_location("pyg_baselines", "./pyg_train.py")
+    spec = importlib.util.spec_from_file_location("pyg_baselines", Path(__file__).with_name("pyg_train.py"))
     mod  = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
 

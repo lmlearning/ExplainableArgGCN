@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "Please cite this software and the associated paper where applicable."
+type: software
+title: "ExplainableArgGCN: Inspectable Graph Learning for Argumentation"
+authors:
+  - family-names: Malmqvist
+    given-names: Lars
+repository-code: "https://github.com/lmlearning/ExplainableArgGCN"
+url: "https://github.com/lmlearning/ExplainableArgGCN"
+license: MIT
