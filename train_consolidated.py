@@ -136,8 +136,8 @@ class RefinedAFGCN(nn.Module):
             h = torch.cat([fixed_s, h], 1)
             h = l(edge_index, h)
 
-        class_logits = self.classification_head(h).squeeze()
-        rank_scores = self.ranking_head(h).squeeze()
+        class_logits = self.classification_head(h).squeeze(-1)
+        rank_scores = self.ranking_head(h).squeeze(-1)
         return class_logits, rank_scores
 # ╰───────────────────────────────────────────────────────────────────────────╯
 

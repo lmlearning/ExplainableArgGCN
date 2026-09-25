@@ -16,7 +16,7 @@ Run example:
 """
 
 import os, random, argparse, pickle, math, time
-from graph_io import parse_tgf
+from graph_io import parse_tgf, parse_extension_union
 import numpy as np, networkx as nx
 from tqdm import tqdm
 from sklearn.preprocessing import StandardScaler
@@ -136,6 +136,8 @@ class AFGraphDataset(Dataset):
         G = nx.DiGraph()
         G.add_nodes_from(args_list)
         G.add_edges_from(atts)
+        if not G.number_of_nodes():
+            raise ValueError(f"{path}: training graphs must contain at least one argument")
         G, mapping = nx.convert_node_labels_to_integers(G, label_attribute="orig"), {n:i for i,n in enumerate(G.nodes())}
 
         # grounded flags
@@ -164,10 +166,11 @@ class AFGraphDataset(Dataset):
 
         # labels
         lbl_p = os.path.join(self.root_dir, os.path.splitext(gfile)[0] + self.label_ext)
-        lab_nodes = []
-        with open(lbl_p) as f:
-            line = f.readline().strip()[1:-1].replace("]]", "")
-            lab_nodes = [z.strip("] ") for sub in line.split("],") for z in sub.split(',')]
+        with open(lbl_p, encoding="utf-8") as f:
+            lab_nodes = parse_extension_union(f.read())
+        unknown = lab_nodes.difference(mapping)
+        if unknown:
+            raise ValueError(f"{lbl_p}: undeclared solution arguments: {sorted(unknown)}")
         y = np.zeros(G.number_of_nodes(), np.int64)
         for n in lab_nodes:
             if n in mapping:
@@ -177,7 +180,7 @@ class AFGraphDataset(Dataset):
         rank = categoriser_ranking(adj)
 
         # edge index with self-loops
-        edge_index = torch.tensor(list(G.edges()), dtype=torch.long).t().contiguous()
+        edge_index = torch.tensor(list(G.edges()), dtype=torch.long).reshape(-1, 2).t().contiguous()
         edge_index, _ = add_self_loops(edge_index, num_nodes=G.number_of_nodes())
 
         data = Data(
@@ -271,7 +274,7 @@ class RefinedAFGCN(nn.Module):
         for l in self.layers[1:]:
             h = torch.cat([s_fixed, h], 1)
             h = l(edge_index, h)
-        return self.out(h).squeeze()
+        return self.out(h).squeeze(-1)
 
 
 # ─────────────────────────────────────────

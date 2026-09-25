@@ -1,5 +1,27 @@
 """Dependency-free input parsing shared by the graph-training entry points."""
 
+import re
+
+
+def parse_extension_union(text):
+    """Read accepted identifiers from an ICCMA extension list.
+
+    Both ``[[a,b],[c]]`` (enumerated extensions) and ``[a,b]`` (one extension)
+    are accepted. The union supplies the existing credulous training target.
+    """
+    text = re.sub(r"\s+", "", text)
+    if not re.fullmatch(r"\[(?:\[[^\[\]]*\](?:,\[[^\[\]]*\])*|[^\[\]]*)\]", text):
+        raise ValueError("expected an extension list such as [[a,b],[c]]")
+    accepted = set()
+    for extension in re.findall(r"\[([^\[\]]*)\]", text):
+        if not extension:
+            continue
+        identifiers = extension.split(",")
+        if any(not identifier for identifier in identifiers):
+            raise ValueError("empty identifier in extension list")
+        accepted.update(identifiers)
+    return accepted
+
 
 def parse_tgf(path):
     """Read the unlabelled TGF subset used by the argumentation datasets.
